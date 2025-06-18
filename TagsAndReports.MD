@@ -86,3 +86,49 @@ After { scenario =>
 
 > We can set custom report output paths for each test type. 
 > 
+
+## Types of Reports Cucumber Can Generate
+> Cucumber can generate several report formats automatically, which are useful for reviewing 
+> what passed, what failed, and why
+>
+
+| Format              | What It’s For                                                             | How It’s Used                               |
+| ------------------- | ------------------------------------------------------------------------- | ------------------------------------------- |
+| **HTML**            | Human-readable report in a browser. Shows features, scenarios, pass/fail. | Great for manual review.                    |
+| **JSON**            | Structured data used by other tools (e.g. Allure).                        | Used for integrations and advanced reports. |
+| **JUNIT/XML**       | Standard format for CI systems like Jenkins or GitLab.                    | Enables tracking test history, trends.      |
+| **Pretty/Progress** | Console output for development use.                                       | Not usually saved, just helps debugging.    |
+
+## Integrate Cucumber reports with third-party tools like Allure or ExtentReports
+
+1. Allure Reports
+   - Allure is a powerful third-party reporting tool that turns JSON or XML results into 
+interactive dashboards.
+   - Generate a JSON report from Cucumber
+   - Use Allure CLI or Maven plugin to transform JSON into HTML dashboards.
+   - View insights like time per test, failure screenshots, environment info.
+
+2.  ExtentReports
+   - to write customer formatters
+   - allows colored test logs
+   - allows custom dashboards
+   - allows embedded screenshots
+
+### Parallel Test Execution in Cucumber
+> A test suite many have many scenarios, if it does, it will
+> take a long time to run in sequence. Running them in 
+> parallel saves time
+> 
+> Cucumber doesn’t run each step in parallel, but rather each feature file.
+>
+> You split your test files across different threads or processes.
+>
+
+Challenges of this:
+
+| Challenge                 | What It Means                                                        |
+| ------------------------- | -------------------------------------------------------------------- |
+| **Shared state**          | Global variables might get overwritten between threads.              |
+| **Database collisions**   | Multiple tests writing to the same DB can conflict.                  |
+| **Test order dependency** | If your tests depend on each other, they might fail in parallel.     |
+| **Reporting**             | Merging multiple JSON/HTML files into one readable report is tricky. |
